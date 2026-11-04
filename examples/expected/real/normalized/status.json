@@ -1,0 +1,9 @@
+{
+  "complete": true,
+  "expected": 2,
+  "inventory_sha256": "da7d7ec6d806d56eef5967ce5c6fef84f7aebffd38527711810f951df309dad6",
+  "issues": {},
+  "missing_db_ids": [],
+  "normalized": 2,
+  "reaction_records_sha256": "ffd66966b142a5fc84031acdd882e19dd0b62cb3fe37cda7115992294868fa1e"
+}

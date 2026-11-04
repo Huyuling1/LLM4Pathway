@@ -1,0 +1,77 @@
+{
+  "cross_pathway_pairs_with_disjoint_recorded_direct_memberships": 0,
+  "cross_species_pairs_with_disjoint_recorded_species": 0,
+  "currency": {
+    "excluded_entities": 2,
+    "excluded_evidence_edges": 0
+  },
+  "edge_types": {
+    "catalyst_dependency": 1
+  },
+  "graph": {
+    "currency_sha256": "aa8a9cfd1bbf602e73cc7936ab2c4fc087981cf320758c9fee1feb11ec74fc20",
+    "currency_version": "1.0.0",
+    "evidence_edges": 1,
+    "format_version": 1,
+    "graph_sha256": "54c13396f6e9adc43681e31ae73634e085f471155a5345dc9eaffb686ca89bdc",
+    "input_complete": true,
+    "reaction_pairs": 1,
+    "reactions": 2
+  },
+  "inference": {
+    "False": 2
+  },
+  "normalization": {
+    "complete": true,
+    "expected": 2,
+    "inventory_sha256": "da7d7ec6d806d56eef5967ce5c6fef84f7aebffd38527711810f951df309dad6",
+    "issues": {},
+    "missing_db_ids": [],
+    "normalized": 2,
+    "reaction_records_sha256": "ffd66966b142a5fc84031acdd882e19dd0b62cb3fe37cda7115992294868fa1e"
+  },
+  "paths": {
+    "active_path": [],
+    "algorithm": "maximal-simple-dfs-v1",
+    "candidate_leaves": 1,
+    "complete": true,
+    "cycle_stopped_chains": 0,
+    "dfs_steps": 3,
+    "enumeration_complete": true,
+    "graph_sha256": "54c13396f6e9adc43681e31ae73634e085f471155a5345dc9eaffb686ca89bdc",
+    "input_complete": true,
+    "interrupted": false,
+    "new_records": 1,
+    "sink_chains": 1,
+    "starts": 1,
+    "starts_entered": 1
+  },
+  "paths_match_current_graph": true,
+  "preceding_event": {
+    "matched_negative_preceding": 0,
+    "only_entity_matching": 1,
+    "only_preceding": 0,
+    "overlap": 0,
+    "pairs_within_graph": 0
+  },
+  "schema_classes": {
+    "Reaction": 2
+  },
+  "species": {
+    "Homo sapiens": 2
+  },
+  "topology": {
+    "branching_nodes": 0,
+    "cyclic_components": 0,
+    "isolated_nodes": 0,
+    "largest_cyclic_component": 0,
+    "max_in_degree": 1,
+    "max_out_degree": 1,
+    "merging_nodes": 0,
+    "reactions_in_cycles": 0,
+    "self_loop_pairs": 0,
+    "sink_nodes": 1,
+    "source_nodes": 1,
+    "strongly_connected_components": 2
+  }
+}

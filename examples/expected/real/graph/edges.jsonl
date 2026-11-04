@@ -1,0 +1,1 @@
+{"entity_id":"R-HSA-9980228","entity_name":"mTORC2:PIP3 [plasma membrane]","id":"af07dc1c6dd87145ce02161566a7a040286d03f03ddabfadccfd760c21ead57f","kind":"catalyst_dependency","source":"R-HSA-9980233","source_pointers":["/outputs/0/element"],"target":"R-HSA-6795290","target_pointers":["/catalystActivity/0/physicalEntity"]}

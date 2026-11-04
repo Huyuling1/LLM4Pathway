@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "reference": "https://reactome.org/ContentService/data/schema/ReferenceMolecule/min?page=1&offset=20000",
+  "match": "Exact ChEBI identifier of the physical entity referenceEntity; no name matching or complex expansion",
+  "molecules": [
+    {"chebi_id": "CHEBI:15377", "name": "water"},
+    {"chebi_id": "CHEBI:15378", "name": "proton"},
+    {"chebi_id": "CHEBI:24636", "name": "proton (Reactome reference)"},
+    {"chebi_id": "CHEBI:15422", "name": "ATP"},
+    {"chebi_id": "CHEBI:30616", "name": "ATP(4-)"},
+    {"chebi_id": "CHEBI:16761", "name": "ADP"},
+    {"chebi_id": "CHEBI:456216", "name": "ADP(3-)"},
+    {"chebi_id": "CHEBI:16027", "name": "AMP"},
+    {"chebi_id": "CHEBI:456215", "name": "adenosine 5'-monophosphate(2-)"},
+    {"chebi_id": "CHEBI:43474", "name": "phosphate"},
+    {"chebi_id": "CHEBI:18367", "name": "phosphate(3-)"},
+    {"chebi_id": "CHEBI:18361", "name": "diphosphate"},
+    {"chebi_id": "CHEBI:33019", "name": "diphosphate(3-)"},
+    {"chebi_id": "CHEBI:15846", "name": "NAD+"},
+    {"chebi_id": "CHEBI:57540", "name": "NAD(1-)"},
+    {"chebi_id": "CHEBI:16908", "name": "NADH"},
+    {"chebi_id": "CHEBI:57945", "name": "NADH(2-)"},
+    {"chebi_id": "CHEBI:18009", "name": "NADP+"},
+    {"chebi_id": "CHEBI:58349", "name": "NADP(3-)"},
+    {"chebi_id": "CHEBI:16474", "name": "NADPH"},
+    {"chebi_id": "CHEBI:57783", "name": "NADPH(4-)"}
+  ],
+  "reactome_st_ids": []
+}

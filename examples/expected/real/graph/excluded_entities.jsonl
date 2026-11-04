@@ -1,0 +1,2 @@
+{"chebi_ids":["CHEBI:30616"],"consumers":1,"display_name":"ATP [cytosol]","entity_id":"R-ALL-113592","excluded_evidence_edges":0,"producers":0}
+{"chebi_ids":["CHEBI:456216"],"consumers":0,"display_name":"ADP [cytosol]","entity_id":"R-ALL-29370","excluded_evidence_edges":0,"producers":1}

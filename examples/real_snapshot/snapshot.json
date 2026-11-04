@@ -1,0 +1,28 @@
+{
+  "base_url": "https://reactome.org/ContentService",
+  "expected_reactions": 2,
+  "format_version": 1,
+  "inventory": [
+    {
+      "dbId": 6795290,
+      "displayName": "mTORC2 phosphorylates SGK1",
+      "schemaClass": "Reaction",
+      "stId": "R-HSA-6795290"
+    },
+    {
+      "dbId": 9980233,
+      "displayName": "PIP3 activates mTORC2",
+      "schemaClass": "Reaction",
+      "stId": "R-HSA-9980233"
+    }
+  ],
+  "inventory_sha256": "da7d7ec6d806d56eef5967ce5c6fef84f7aebffd38527711810f951df309dad6",
+  "query": {
+    "fetchIncomingRelationships": "true",
+    "includeRef": "true",
+    "summariseReferenceEntity": "true",
+    "view": "nested"
+  },
+  "reactome_release": "98",
+  "scope": "two named human reactions for API integration example; not the full database"
+}

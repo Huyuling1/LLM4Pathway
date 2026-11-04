@@ -1,0 +1,10 @@
+{
+  "currency_sha256": "aa8a9cfd1bbf602e73cc7936ab2c4fc087981cf320758c9fee1feb11ec74fc20",
+  "currency_version": "1.0.0",
+  "evidence_edges": 1,
+  "format_version": 1,
+  "graph_sha256": "54c13396f6e9adc43681e31ae73634e085f471155a5345dc9eaffb686ca89bdc",
+  "input_complete": true,
+  "reaction_pairs": 1,
+  "reactions": 2
+}

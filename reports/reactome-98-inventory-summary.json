@@ -1,0 +1,65 @@
+{
+  "base_url": "https://reactome.org/ContentService",
+  "discovery_passes": [
+    {
+      "page_size": 20000,
+      "unique_reactions": 96060
+    },
+    {
+      "page_size": 19969,
+      "unique_reactions": 96065
+    }
+  ],
+  "expected_reactions": 96065,
+  "inventory_complete": true,
+  "inventory_sha256": "aba31e308fd5cf617bdb9d3e5ec4658abbe202ef14609bf42c76a8a4e1a5cf8c",
+  "query": {
+    "fetchIncomingRelationships": "true",
+    "includeRef": "true",
+    "summariseReferenceEntity": "true",
+    "view": "nested"
+  },
+  "reactome_release": "98",
+  "schema_classes": {
+    "BlackBoxEvent": 10735,
+    "CellDevelopmentStep": 27,
+    "Depolymerisation": 29,
+    "FailedReaction": 460,
+    "Polymerisation": 255,
+    "Reaction": 84559
+  },
+  "scope": "all ReactionLikeEvent subclasses; all species; inferred and disease events included",
+  "stable_id_prefixes": {
+    "R-AMA": 1,
+    "R-BTA": 8624,
+    "R-CEL": 4093,
+    "R-CFA": 8005,
+    "R-CFS": 1,
+    "R-CGR": 3,
+    "R-CPO": 2,
+    "R-DDI": 2589,
+    "R-DME": 5054,
+    "R-DRE": 6244,
+    "R-ECO": 5,
+    "R-FCA": 1,
+    "R-GGA": 7384,
+    "R-HAM": 1,
+    "R-HSA": 16187,
+    "R-MGA": 2,
+    "R-MMU": 10296,
+    "R-MTU": 44,
+    "R-NUL": 389,
+    "R-OAR": 2,
+    "R-OCU": 12,
+    "R-PCH": 1,
+    "R-PFA": 970,
+    "R-RNO": 9005,
+    "R-SCE": 1648,
+    "R-SPO": 1572,
+    "R-SSC": 8225,
+    "R-TAE": 1,
+    "R-VRA": 1,
+    "R-XLA": 18,
+    "R-XTR": 5685
+  }
+}

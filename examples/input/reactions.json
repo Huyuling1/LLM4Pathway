@@ -1,0 +1,48 @@
+[
+  {
+    "@id": "reaction1", "dbId": 1, "stId": "R-DEMO-1", "displayName": "S is converted to A", "schemaClass": "Reaction", "isInferred": false, "speciesName": "Demo species",
+    "inputs": [{"type": "input", "stoichiometry": 1, "element": {"dbId": 101, "stId": "R-DEMO-S", "displayName": "S [cytosol]", "schemaClass": "SimpleEntity"}}],
+    "outputs": [
+      {"type": "output", "stoichiometry": 1, "element": {"dbId": 102, "stId": "R-DEMO-A", "displayName": "A [cytosol]", "schemaClass": "SimpleEntity"}},
+      {"type": "output", "stoichiometry": 1, "element": {"dbId": 108, "stId": "R-DEMO-J", "displayName": "J [cytosol]", "schemaClass": "SimpleEntity"}}
+    ]
+  },
+  {
+    "@id": "reaction2", "dbId": 2, "stId": "R-DEMO-2", "displayName": "A is converted to B", "schemaClass": "Reaction", "isInferred": true, "speciesName": "Demo species",
+    "inputs": [
+      {"type": "input", "stoichiometry": 2, "element": {"dbId": 102, "stId": "R-DEMO-A", "displayName": "A [cytosol]", "schemaClass": "SimpleEntity"}},
+      {"type": "input", "stoichiometry": 1, "element": {"@id": "atp", "dbId": 190, "stId": "R-DEMO-ATP", "displayName": "ATP [cytosol]", "schemaClass": "SimpleEntity", "referenceEntity": {"@id": "atpref", "dbId": 191, "stId": "chebi:30616", "databaseName": "ChEBI", "identifier": "30616"}}}
+    ],
+    "outputs": [{"type": "output", "stoichiometry": 1, "element": {"dbId": 103, "stId": "R-DEMO-B", "displayName": "B [cytosol]", "schemaClass": "SimpleEntity"}}],
+    "catalystActivity": [{"dbId": 202, "schemaClass": "CatalystActivity", "physicalEntity": {"@id": "enzyme", "dbId": 104, "stId": "R-DEMO-E", "displayName": "E [cytosol]", "schemaClass": "Complex"}}],
+    "regulatedBy": [{"dbId": 203, "schemaClass": "Requirement", "regulator": {"@ref": "atp"}}],
+    "precedingEvent": [{"dbId": 1, "stId": "R-DEMO-1", "schemaClass": "Reaction"}]
+  },
+  {
+    "dbId": 3, "stId": "R-DEMO-3", "displayName": "B is recycled to A", "schemaClass": "Reaction", "speciesName": "Demo species",
+    "inputs": [{"stoichiometry": 1, "element": {"dbId": 103, "stId": "R-DEMO-B", "displayName": "B [cytosol]"}}],
+    "outputs": [{"stoichiometry": 1, "element": {"dbId": 102, "stId": "R-DEMO-A", "displayName": "A [cytosol]"}}]
+  },
+  {
+    "dbId": 4, "stId": "R-DEMO-4", "displayName": "B is converted to P", "schemaClass": "Reaction", "speciesName": "Demo species",
+    "inputs": [{"stoichiometry": 1, "element": {"dbId": 103, "stId": "R-DEMO-B", "displayName": "B [cytosol]"}}],
+    "outputs": [{"stoichiometry": 1, "element": {"dbId": 105, "stId": "R-DEMO-P", "displayName": "P [cytosol]"}}],
+    "regulatedBy": [
+      {"dbId": 204, "schemaClass": "PositiveRegulation", "regulator": {"dbId": 108, "stId": "R-DEMO-J", "displayName": "J [cytosol]"}},
+      {"dbId": 205, "schemaClass": "NegativeRegulation", "regulator": {"dbId": 106, "stId": "R-DEMO-I", "displayName": "I [cytosol]"}}
+    ],
+    "negativePrecedingEvent": [{"dbId": 206, "precedingEvent": [{"dbId": 5, "stId": "R-DEMO-5"}], "reason": {"dbId": 207, "displayName": "Demo curator rejection"}}]
+  },
+  {
+    "dbId": 5, "stId": "R-DEMO-5", "displayName": "Q forms a catalyst and an inhibitor", "schemaClass": "BlackBoxEvent", "speciesName": "Demo species",
+    "inputs": [{"stoichiometry": 1, "element": {"dbId": 107, "stId": "R-DEMO-Q", "displayName": "Q [cytosol]"}}],
+    "outputs": [
+      {"stoichiometry": 1, "element": {"dbId": 104, "stId": "R-DEMO-E", "displayName": "E [cytosol]", "schemaClass": "Complex"}},
+      {"stoichiometry": 1, "element": {"dbId": 106, "stId": "R-DEMO-I", "displayName": "I [cytosol]"}}
+    ]
+  },
+  {
+    "dbId": 6, "stId": "R-DEMO-6", "displayName": "An ATP-producing isolated reaction", "schemaClass": "Reaction", "speciesName": "Demo species",
+    "outputs": [{"stoichiometry": 1, "element": {"dbId": 190, "stId": "R-DEMO-ATP", "displayName": "ATP [cytosol]", "schemaClass": "SimpleEntity", "referenceEntity": {"dbId": 191, "databaseName": "ChEBI", "identifier": "30616"}}}]
+  }
+]

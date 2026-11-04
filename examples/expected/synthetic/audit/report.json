@@ -1,0 +1,83 @@
+{
+  "cross_pathway_pairs_with_disjoint_recorded_direct_memberships": 0,
+  "cross_species_pairs_with_disjoint_recorded_species": 0,
+  "currency": {
+    "excluded_entities": 1,
+    "excluded_evidence_edges": 2
+  },
+  "edge_types": {
+    "catalyst_dependency": 1,
+    "material_flow": 4,
+    "negative_regulation": 1,
+    "positive_regulation": 1
+  },
+  "graph": {
+    "currency_sha256": "aa8a9cfd1bbf602e73cc7936ab2c4fc087981cf320758c9fee1feb11ec74fc20",
+    "currency_version": "1.0.0",
+    "evidence_edges": 7,
+    "format_version": 1,
+    "graph_sha256": "164f4b0bb9ba88e3df408e899baebc029b44f075c6b6d30fd9283cc2e24f7a82",
+    "input_complete": true,
+    "reaction_pairs": 7,
+    "reactions": 6
+  },
+  "inference": {
+    "False": 1,
+    "None": 4,
+    "True": 1
+  },
+  "normalization": {
+    "complete": true,
+    "expected": 6,
+    "inventory_sha256": "a48eada83846ee93826108d5011e217dab0ecfee88a9edbe7e37e505ede2e506",
+    "issues": {},
+    "missing_db_ids": [],
+    "normalized": 6,
+    "reaction_records_sha256": "757d709428580b90ef862b305d9e6c0fc806053293990880e613be01c25e409b"
+  },
+  "paths": {
+    "active_path": [],
+    "algorithm": "maximal-simple-dfs-v1",
+    "candidate_leaves": 10,
+    "complete": true,
+    "cycle_stopped_chains": 2,
+    "dfs_steps": 29,
+    "enumeration_complete": true,
+    "graph_sha256": "164f4b0bb9ba88e3df408e899baebc029b44f075c6b6d30fd9283cc2e24f7a82",
+    "input_complete": true,
+    "interrupted": false,
+    "new_records": 8,
+    "sink_chains": 6,
+    "starts": 5,
+    "starts_entered": 5
+  },
+  "paths_match_current_graph": true,
+  "preceding_event": {
+    "matched_negative_preceding": 1,
+    "only_entity_matching": 6,
+    "only_preceding": 0,
+    "overlap": 1,
+    "pairs_within_graph": 1
+  },
+  "schema_classes": {
+    "BlackBoxEvent": 1,
+    "Reaction": 5
+  },
+  "species": {
+    "Demo species": 6
+  },
+  "topology": {
+    "branching_nodes": 3,
+    "cyclic_components": 1,
+    "isolated_nodes": 1,
+    "largest_cyclic_component": 2,
+    "max_in_degree": 3,
+    "max_out_degree": 2,
+    "merging_nodes": 2,
+    "reactions_in_cycles": 2,
+    "self_loop_pairs": 0,
+    "sink_nodes": 2,
+    "source_nodes": 3,
+    "strongly_connected_components": 5
+  }
+}

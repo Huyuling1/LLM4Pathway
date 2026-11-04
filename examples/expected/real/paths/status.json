@@ -1,0 +1,16 @@
+{
+  "active_path": [],
+  "algorithm": "maximal-simple-dfs-v1",
+  "candidate_leaves": 1,
+  "complete": true,
+  "cycle_stopped_chains": 0,
+  "dfs_steps": 3,
+  "enumeration_complete": true,
+  "graph_sha256": "54c13396f6e9adc43681e31ae73634e085f471155a5345dc9eaffb686ca89bdc",
+  "input_complete": true,
+  "interrupted": false,
+  "new_records": 1,
+  "sink_chains": 1,
+  "starts": 1,
+  "starts_entered": 1
+}
