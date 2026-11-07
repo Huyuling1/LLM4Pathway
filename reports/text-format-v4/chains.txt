@@ -1,0 +1,104 @@
+"GGT dimers hydrolyse GSH": H2O [extracellular region] + GSH [extracellular region] → CysGly [extracellular region] + L-Glu [extracellular region]; catalyst: GGT dimers [plasma membrane]
+
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+   Connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" produces L-Cys [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+closed-loop connection: "OPLAH hydrolyses OPRO to L-Glu" → "GCL ligates L-Glu to L-Cys".
+
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+   Connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" produces Gly [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+   Connection: "OPLAH hydrolyses OPRO to L-Glu" produces L-Glu [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GGCT transforms gGluCys to OPRO".
+"GGCT transforms gGluCys to OPRO": gGluCys [cytosol] → L-Cys [cytosol] + OPRO [cytosol]; catalyst: GGCT dimer [cytosol]
+closed-loop connection: "GGCT transforms gGluCys to OPRO" → "OPLAH hydrolyses OPRO to L-Glu".
+closed-loop connection: "GGCT transforms gGluCys to OPRO" → "GCL ligates L-Glu to L-Cys".
+
+"GGCT transforms gGluCys to OPRO": gGluCys [cytosol] → L-Cys [cytosol] + OPRO [cytosol]; catalyst: GGCT dimer [cytosol]
+   Connection: "GGCT transforms gGluCys to OPRO" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+   Connection: "OPLAH hydrolyses OPRO to L-Glu" produces L-Glu [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces CysGly [cytosol], which is an input to "CNDP2:2Mn2+ dimer hydrolyses CysGly".
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+closed-loop connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" → "GCL ligates L-Glu to L-Cys".
+closed-loop connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" → "GSS:Mg2+ dimer synthesizes GSH".
+
+"GGCT transforms gGluCys to OPRO": gGluCys [cytosol] → L-Cys [cytosol] + OPRO [cytosol]; catalyst: GGCT dimer [cytosol]
+   Connection: "GGCT transforms gGluCys to OPRO" produces L-Cys [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces CysGly [cytosol], which is an input to "CNDP2:2Mn2+ dimer hydrolyses CysGly".
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+closed-loop connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" → "GCL ligates L-Glu to L-Cys".
+closed-loop connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" → "GSS:Mg2+ dimer synthesizes GSH".
+
+"GGCT transforms gGluCys to OPRO": gGluCys [cytosol] → L-Cys [cytosol] + OPRO [cytosol]; catalyst: GGCT dimer [cytosol]
+   Connection: "GGCT transforms gGluCys to OPRO" produces L-Cys [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+closed-loop connection: "OPLAH hydrolyses OPRO to L-Glu" → "GCL ligates L-Glu to L-Cys".
+
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+   Connection: "GSS:Mg2+ dimer synthesizes GSH" produces GSH [cytosol], which is an input to "CHAC1,2 cleaves GSH to OPRO and CysGly".
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces CysGly [cytosol], which is an input to "CNDP2:2Mn2+ dimer hydrolyses CysGly".
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+   Connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" produces L-Cys [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GGCT transforms gGluCys to OPRO".
+"GGCT transforms gGluCys to OPRO": gGluCys [cytosol] → L-Cys [cytosol] + OPRO [cytosol]; catalyst: GGCT dimer [cytosol]
+   Connection: "GGCT transforms gGluCys to OPRO" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+closed-loop connection: "OPLAH hydrolyses OPRO to L-Glu" → "GCL ligates L-Glu to L-Cys".
+
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces CysGly [cytosol], which is an input to "CNDP2:2Mn2+ dimer hydrolyses CysGly".
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+   Connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" produces L-Cys [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "GSS:Mg2+ dimer synthesizes GSH".
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "CHAC1,2 cleaves GSH to OPRO and CysGly".
+
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces CysGly [cytosol], which is an input to "CNDP2:2Mn2+ dimer hydrolyses CysGly".
+"CNDP2:2Mn2+ dimer hydrolyses CysGly": CysGly [cytosol] + H2O [cytosol] → L-Cys [cytosol] + Gly [cytosol]; catalyst: CNDP2:2Mn2+ dimer [cytosol]
+   Connection: "CNDP2:2Mn2+ dimer hydrolyses CysGly" produces Gly [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "GSS:Mg2+ dimer synthesizes GSH".
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "CHAC1,2 cleaves GSH to OPRO and CysGly".
+
+"CHAC1,2 cleaves GSH to OPRO and CysGly": GSH [cytosol] → CysGly [cytosol] + OPRO [cytosol]; catalyst: CHAC1,2 [cytosol]
+   Connection: "CHAC1,2 cleaves GSH to OPRO and CysGly" produces OPRO [cytosol], which is an input to "OPLAH hydrolyses OPRO to L-Glu".
+"OPLAH hydrolyses OPRO to L-Glu": ATP [cytosol] + OPRO [cytosol] + 2 H2O [cytosol] → ADP [cytosol] + Pi [cytosol] + L-Glu [cytosol]; catalyst: OPLAH [cytosol]
+   Connection: "OPLAH hydrolyses OPRO to L-Glu" produces L-Glu [cytosol], which is an input to "GCL ligates L-Glu to L-Cys".
+"GCL ligates L-Glu to L-Cys": L-Cys [cytosol] + ATP [cytosol] + L-Glu [cytosol] → gGluCys [cytosol] + ADP [cytosol] + Pi [cytosol]; catalyst: GCL [cytosol]
+   Connection: "GCL ligates L-Glu to L-Cys" produces gGluCys [cytosol], which is an input to "GSS:Mg2+ dimer synthesizes GSH".
+"GSS:Mg2+ dimer synthesizes GSH": ATP [cytosol] + gGluCys [cytosol] + Gly [cytosol] → ADP [cytosol] + Pi [cytosol] + GSH [cytosol]; catalyst: GSS:Mg2+ dimer [cytosol]; negative regulators: GSH [cytosol]
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "GSS:Mg2+ dimer synthesizes GSH".
+closed-loop connection: "GSS:Mg2+ dimer synthesizes GSH" → "CHAC1,2 cleaves GSH to OPRO and CysGly".

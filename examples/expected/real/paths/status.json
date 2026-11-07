@@ -6,10 +6,12 @@
   "cycle_stopped_chains": 0,
   "dfs_steps": 3,
   "enumeration_complete": true,
-  "graph_sha256": "54c13396f6e9adc43681e31ae73634e085f471155a5345dc9eaffb686ca89bdc",
+  "graph_sha256": "51d59981a019c0d429d52a571fb062f05de525cc2de8c5fa5d923f404f526800",
   "input_complete": true,
+  "input_coverage_version": "prefix-input-stid-v1",
   "interrupted": false,
   "new_records": 1,
+  "record_version": "named-reactions-cycle-connections-v4.3",
   "sink_chains": 1,
   "starts": 1,
   "starts_entered": 1

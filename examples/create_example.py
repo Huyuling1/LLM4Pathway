@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from reactome_pipeline.common import digest, dumps, read_json, write_bytes, write_json
+from reactome_pipeline.common import digest, dumps, file_sha, read_json, write_bytes, write_json
 from reactome_pipeline.fetch import QUERY, raw_path
 
 
@@ -36,9 +36,27 @@ def create_real_example(out):
     return out
 
 
+def create_pathway_example(out, snapshot="pathway_snapshot"):
+    source = Path(__file__).parent / snapshot
+    out = Path(out)
+    for filename, sha in read_json(source / "checksums.json").items():
+        if file_sha(source / filename) != sha:
+            raise ValueError("Frozen pathway checksum mismatch: " + filename)
+        if (out / filename).exists() and file_sha(out / filename) != sha:
+            raise ValueError("Output contains different pathway data: " + filename)
+        write_bytes(out / filename, (source / filename).read_bytes())
+    return out
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="runs/example")
-    parser.add_argument("--real", action="store_true", help="Copy the frozen two-reaction Reactome example")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--real", action="store_true", help="Copy the frozen two-reaction Reactome example")
+    group.add_argument("--pathway", action="store_true", help="Copy the complete frozen glutathione pathway")
+    group.add_argument("--extraction", action="store_true", help="Copy one frozen real reaction per event subclass")
     args = parser.parse_args()
-    (create_real_example if args.real else create_example)(args.out)
+    if args.extraction:
+        create_pathway_example(args.out, "extraction_snapshot")
+    else:
+        (create_pathway_example if args.pathway else create_real_example if args.real else create_example)(args.out)

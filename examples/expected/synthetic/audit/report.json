@@ -1,9 +1,360 @@
 {
+  "chain_metrics": {
+    "cycle_stopped_chains": 2,
+    "cycle_stopped_fraction": 0.25,
+    "enumeration_complete": true,
+    "input_complete": true,
+    "input_coverage": {
+      "chains_without_annotations": 0,
+      "covered_fraction": 0.3333333333333333,
+      "covered_input_occurrences": 8,
+      "missing_id_occurrences": 0,
+      "uncovered_input_occurrences": 16
+    },
+    "lengths": {
+      "all": {
+        "count": 8,
+        "histogram": {
+          "1": 1,
+          "2": 2,
+          "3": 5
+        },
+        "max": 3,
+        "mean": 2.5,
+        "median_nearest_rank": 3,
+        "min": 1,
+        "p95_nearest_rank": 3
+      },
+      "cycle_blocked": {
+        "count": 2,
+        "histogram": {
+          "3": 2
+        },
+        "max": 3,
+        "mean": 3.0,
+        "median_nearest_rank": 3,
+        "min": 3,
+        "p95_nearest_rank": 3
+      },
+      "sink": {
+        "count": 6,
+        "histogram": {
+          "1": 1,
+          "2": 2,
+          "3": 3
+        },
+        "max": 3,
+        "mean": 2.3333333333333335,
+        "median_nearest_rank": 2,
+        "min": 1,
+        "p95_nearest_rank": 3
+      }
+    },
+    "population": "emitted chains in this graph; DFS prefix if enumeration is unfinished",
+    "reaction_coverage": {
+      "covered_reactions": 6,
+      "graph_reactions": 6,
+      "mean_appearances_per_covered_reaction": 3.3333333333333335,
+      "most_repeated": [
+        {
+          "count": 5,
+          "reaction_id": "R-DEMO-2"
+        },
+        {
+          "count": 5,
+          "reaction_id": "R-DEMO-4"
+        },
+        {
+          "count": 3,
+          "reaction_id": "R-DEMO-1"
+        },
+        {
+          "count": 3,
+          "reaction_id": "R-DEMO-3"
+        },
+        {
+          "count": 3,
+          "reaction_id": "R-DEMO-5"
+        },
+        {
+          "count": 1,
+          "reaction_id": "R-DEMO-6"
+        }
+      ],
+      "occurrence_distribution": {
+        "count": 6,
+        "histogram": {
+          "1": 1,
+          "3": 3,
+          "5": 2
+        },
+        "max": 5,
+        "mean": 3.3333333333333335,
+        "median_nearest_rank": 3,
+        "min": 1,
+        "p95_nearest_rank": 5
+      },
+      "reactions_in_multiple_chains": 5,
+      "repeat_appearance_fraction": 0.7,
+      "total_appearances": 20,
+      "uncovered_reactions": 0
+    },
+    "sink_chains": 6,
+    "sink_fraction": 0.75,
+    "total_chains": 8
+  },
   "cross_pathway_pairs_with_disjoint_recorded_direct_memberships": 0,
   "cross_species_pairs_with_disjoint_recorded_species": 0,
   "currency": {
+    "attribution": "Endpoint losses follow exclusion of the ENTIRE frozen list; per-molecule affected sets overlap. Evidence counts include self-loops and distinguish target roles.",
     "excluded_entities": 1,
-    "excluded_evidence_edges": 2
+    "excluded_evidence_edges": 2,
+    "molecules": [
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:15377",
+        "name": "water"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:15378",
+        "name": "proton"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:15422",
+        "name": "ATP"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:15846",
+        "name": "NAD+"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:16027",
+        "name": "AMP"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:16474",
+        "name": "NADPH"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:16761",
+        "name": "ADP"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:16908",
+        "name": "NADH"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:18009",
+        "name": "NADP+"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:18361",
+        "name": "diphosphate"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:18367",
+        "name": "phosphate(3-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:24636",
+        "name": "proton (Reactome reference)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [
+          "R-DEMO-6"
+        ],
+        "affected_reactions_losing_all_downstream": [
+          "R-DEMO-6"
+        ],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [
+          "R-DEMO-ATP"
+        ],
+        "examples": [
+          {
+            "entity_id": "R-DEMO-ATP",
+            "entity_name": "ATP [cytosol]",
+            "kind": "material_flow",
+            "pair_retained_by_other_evidence": false,
+            "source": "R-DEMO-6",
+            "source_name": "An ATP-producing isolated reaction",
+            "target": "R-DEMO-2",
+            "target_name": "A is converted to B"
+          },
+          {
+            "entity_id": "R-DEMO-ATP",
+            "entity_name": "ATP [cytosol]",
+            "kind": "positive_regulation",
+            "pair_retained_by_other_evidence": false,
+            "source": "R-DEMO-6",
+            "source_name": "An ATP-producing isolated reaction",
+            "target": "R-DEMO-2",
+            "target_name": "A is converted to B"
+          }
+        ],
+        "excluded_evidence_edges": 2,
+        "identifier": "CHEBI:30616",
+        "name": "ATP(4-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:33019",
+        "name": "diphosphate(3-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:43474",
+        "name": "phosphate"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:456215",
+        "name": "adenosine 5'-monophosphate(2-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:456216",
+        "name": "ADP(3-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:57540",
+        "name": "NAD(1-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:57783",
+        "name": "NADPH(4-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:57945",
+        "name": "NADH(2-)"
+      },
+      {
+        "affected_reactions_becoming_isolated": [],
+        "affected_reactions_losing_all_downstream": [],
+        "affected_reactions_losing_all_upstream": [],
+        "entity_ids": [],
+        "examples": [],
+        "excluded_evidence_edges": 0,
+        "identifier": "CHEBI:58349",
+        "name": "NADP(3-)"
+      }
+    ],
+    "reactions_becoming_isolated": [
+      "R-DEMO-6"
+    ],
+    "reactions_losing_all_downstream": [
+      "R-DEMO-6"
+    ],
+    "reactions_losing_all_upstream": []
   },
   "edge_types": {
     "catalyst_dependency": 1,
@@ -16,7 +367,7 @@
     "currency_version": "1.0.0",
     "evidence_edges": 7,
     "format_version": 1,
-    "graph_sha256": "164f4b0bb9ba88e3df408e899baebc029b44f075c6b6d30fd9283cc2e24f7a82",
+    "graph_sha256": "bcbf92ad6503b2c06274ab971b785dcd2c08bc8832686e9aa84a336b19a768e9",
     "input_complete": true,
     "reaction_pairs": 7,
     "reactions": 6
@@ -33,7 +384,7 @@
     "issues": {},
     "missing_db_ids": [],
     "normalized": 6,
-    "reaction_records_sha256": "757d709428580b90ef862b305d9e6c0fc806053293990880e613be01c25e409b"
+    "reaction_records_sha256": "a8788e5a7514aa583cf905f1c0eaf9ae7a636e4a60fd91fdd6aa2e231033b659"
   },
   "paths": {
     "active_path": [],
@@ -43,10 +394,12 @@
     "cycle_stopped_chains": 2,
     "dfs_steps": 29,
     "enumeration_complete": true,
-    "graph_sha256": "164f4b0bb9ba88e3df408e899baebc029b44f075c6b6d30fd9283cc2e24f7a82",
+    "graph_sha256": "bcbf92ad6503b2c06274ab971b785dcd2c08bc8832686e9aa84a336b19a768e9",
     "input_complete": true,
+    "input_coverage_version": "prefix-input-stid-v1",
     "interrupted": false,
     "new_records": 8,
+    "record_version": "named-reactions-cycle-connections-v4.3",
     "sink_chains": 6,
     "starts": 5,
     "starts_entered": 5
@@ -63,6 +416,7 @@
     "BlackBoxEvent": 1,
     "Reaction": 5
   },
+  "scope": "six synthetic reactions illustrating edge types, a cycle and currency exclusion",
   "species": {
     "Demo species": 6
   },

@@ -1,0 +1,6 @@
+{"chain_occurrences":3,"display_name":"S is converted to A","reaction_id":"R-DEMO-1"}
+{"chain_occurrences":5,"display_name":"A is converted to B","reaction_id":"R-DEMO-2"}
+{"chain_occurrences":3,"display_name":"B is recycled to A","reaction_id":"R-DEMO-3"}
+{"chain_occurrences":5,"display_name":"B is converted to P","reaction_id":"R-DEMO-4"}
+{"chain_occurrences":3,"display_name":"Q forms a catalyst and an inhibitor","reaction_id":"R-DEMO-5"}
+{"chain_occurrences":1,"display_name":"An ATP-producing isolated reaction","reaction_id":"R-DEMO-6"}

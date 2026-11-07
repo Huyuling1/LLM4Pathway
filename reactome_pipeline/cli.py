@@ -12,11 +12,12 @@ from .graph import build_graph
 from .normalize import normalize
 from .paths import enumerate_chains
 from .locking import SnapshotLock
+from .extraction_audit import audit_extraction
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Deterministic Reactome reaction graphs and maximal simple chains")
-    parser.add_argument("stage", choices=("discover", "fetch", "normalize", "graph", "paths", "audit", "status", "run"))
+    parser.add_argument("stage", choices=("discover", "fetch", "normalize", "graph", "paths", "audit", "audit-extraction", "status", "run"))
     parser.add_argument("--out", required=True, help="Snapshot directory; reuse it to resume")
     parser.add_argument("--base-url", default=DEFAULT_BASE)
     parser.add_argument("--workers", type=int, default=4)
@@ -30,6 +31,9 @@ def main(argv=None):
     parser.add_argument("--allow-partial", action="store_true", help="Explicitly process downloaded subset; output retains partial status")
     parser.add_argument("--stop-after", type=int, help="Checkpoint after this many NEW chain records; rerun to continue")
     parser.add_argument("--checkpoint-every", type=int, default=1000, help="DFS operations per checkpoint")
+    parser.add_argument("--max-dfs-steps", type=int, help="Pause enumeration after this many additional DFS operations")
+    parser.add_argument("--max-seconds", type=float, help="Pause enumeration after this many seconds of traversal")
+    parser.add_argument("--small-components-first", action="store_true", help="Visit independent small graph components first")
     args = parser.parse_args(argv)
     if args.workers < 1 or args.interval < 0 or args.timeout <= 0 or args.retries < 0 or args.max_failures < 1 or (args.limit is not None and args.limit < 1):
         parser.error("Invalid network or fetch limit argument")
@@ -51,7 +55,7 @@ def snapshot_status(root):
     if (root / "downloads.sqlite").exists():
         with sqlite3.connect((root / "downloads.sqlite").resolve().as_uri() + "?mode=ro", uri=True) as db:
             result["downloaded_with_receipts"] = db.execute("SELECT count(*) FROM receipts").fetchone()[0]
-    for key, filename in (("download", "download_status.json"), ("normalized", "normalized/status.json"), ("graph", "graph/status.json"), ("paths", "paths/status.json"), ("enumeration_progress", "paths/progress.json")):
+    for key, filename in (("download", "download_status.json"), ("normalized", "normalized/status.json"), ("graph", "graph/status.json"), ("paths", "paths/status.json"), ("enumeration_progress", "paths/progress.json"), ("extraction_audit", "audit/extraction_report.json")):
         if (root / filename).exists():
             result[key] = read_json(root / filename)
     return result
@@ -73,12 +77,18 @@ def run_stage(args):
             print(dumps(result), flush=True)
             if args.stage == "normalize" and not result["complete"]:
                 return 2
+            if args.stage == "run":
+                checks = audit_extraction(args.out)
+                print(dumps(checks), flush=True)
+                if not checks["source_comparison_passed"]:
+                    return 2
         if args.stage in ("graph", "run"):
             print(dumps(build_graph(args.out, args.currency)), flush=True)
         if args.stage == "run":
             print(dumps(audit(args.out)), flush=True)
         if args.stage in ("paths", "run"):
-            result = enumerate_chains(args.out, args.stop_after, args.checkpoint_every)
+            result = enumerate_chains(args.out, args.stop_after, args.checkpoint_every,
+                                      args.max_dfs_steps, args.max_seconds, args.small_components_first)
             print(dumps(result), flush=True)
             if args.stage == "run":
                 audit(args.out)
@@ -86,6 +96,10 @@ def run_stage(args):
                 return 2
         if args.stage == "audit":
             print(dumps(audit(args.out)), flush=True)
+        if args.stage == "audit-extraction":
+            result = audit_extraction(args.out)
+            print(dumps(result), flush=True)
+            return 0 if result["source_comparison_passed"] and result["input_complete"] else 2
     except (ValueError, RuntimeError, OSError) as exc:
         print(str(exc), file=sys.stderr)
         return 1

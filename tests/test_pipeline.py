@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from examples.create_example import create_example, create_real_example
+from examples.create_example import create_example, create_real_example, create_pathway_example
 from reactome_pipeline.audit import audit
 from reactome_pipeline.common import digest, dumps, read_json, read_jsonl, write_json, write_jsonl
 from reactome_pipeline.currency import load_currency
@@ -15,6 +15,8 @@ from reactome_pipeline.fetch import download, inventory
 from reactome_pipeline.graph import build_graph, components
 from reactome_pipeline.normalize import normalize, normalize_one
 from reactome_pipeline.paths import enumerate_chains
+from reactome_pipeline.coverage import input_coverage
+from reactome_pipeline.review import prepare, packet
 
 
 class PipelineTests(unittest.TestCase):
@@ -114,6 +116,17 @@ class PipelineTests(unittest.TestCase):
             if row["status"] == "cycle_blocked":
                 self.assertTrue(row["closing_edges"])
                 self.assertTrue(all(edge["target"] in row["reaction_ids"] for edge in row["closing_edges"]))
+                self.assertEqual(row["text"].count("closed-loop connection:"), len(row["closing_edges"]))
+                self.assertNotIn("returns to a reaction already in this chain", row["text"])
+            else:
+                self.assertEqual(row["closing_edges"], [])
+                self.assertNotIn("closed-loop connection:", row["text"])
+            self.assertIn("input_coverage", row)
+            self.assertNotIn("Inputs matched to earlier outputs", row["text"])
+            self.assertNotIn("Inputs not matched to earlier outputs", row["text"])
+            self.assertNotIn("Input coverage:", row["text"])
+            self.assertNotIn("cycle_blocked", row["text"])
+            self.assertNotIn("R-DEMO-", row["text"])
 
     def test_curated_order_is_audited_separately(self):
         self.graph()
@@ -209,7 +222,87 @@ class PipelineTests(unittest.TestCase):
             records = list(read_jsonl(Path(other) / "paths" / "complete_chains.jsonl"))
             self.assertEqual(len(records), 1)
             self.assertIn("ATP [cytosol]", records[0]["text"])
-            self.assertIn("provides a catalyst", records[0]["text"])
+            self.assertIn(', which is a catalyst for "mTORC2 phosphorylates SGK1".', records[0]["text"])
+
+    def test_prefix_inputs_include_distant_sources_currency_and_missing_ids(self):
+        def entity(eid, pointer, count=1):
+            return {"entity_id": eid, "source_pointer": pointer, "stoichiometry": count}
+        rows = {
+            "A": {"inputs": [entity("later", "/inputs/0")],
+                  "outputs": [entity("ATP", "/outputs/0"), entity("X", "/outputs/1", 2)]},
+            "B": {"inputs": [entity("X", "/inputs/0")], "outputs": [entity("X", "/outputs/0")]},
+            "C": {"inputs": [entity("ATP", "/inputs/0"), entity("X", "/inputs/1", 10),
+                             entity(None, "/inputs/2"), entity("X-other-compartment", "/inputs/3"),
+                             entity("later", "/inputs/4")], "outputs": [entity("later", "/outputs/0")]}}
+        steps = input_coverage(["A", "B", "C"], rows)
+        self.assertEqual(steps[0]["covered_inputs"], [])
+        self.assertEqual([x["entity_id"] for x in steps[2]["covered_inputs"]], ["ATP", "X"])
+        providers = steps[2]["covered_inputs"][1]["providers"]
+        self.assertEqual([p["reaction_id"] for p in providers], ["A", "B"])
+        self.assertEqual(providers[0]["stoichiometry"], 2)
+        self.assertEqual(steps[2]["covered_inputs"][1]["stoichiometry"], 10)
+        self.assertEqual([x["reason"] for x in steps[2]["uncovered_inputs"]],
+                         ["missing_stable_identifier", "no_earlier_output_match", "no_earlier_output_match"])
+
+    def test_parallel_evidence_and_inhibitor_text_survive_enumeration(self):
+        self.graph()
+        rows = list(read_jsonl(self.root / "normalized" / "reactions.jsonl"))
+        inhibitor = copy.deepcopy(rows[3]["regulators"][1])
+        inhibitor.update({"entity_id": "R-DEMO-I", "kind": "negative_regulation"})
+        rows[3]["inputs"].append(inhibitor)
+        write_jsonl(self.root / "normalized" / "reactions.jsonl", rows)
+        build_graph(self.root)
+        enumerate_chains(self.root)
+        chain = next(c for c in self.chains() if c["reaction_ids"] == ["R-DEMO-5", "R-DEMO-4"])
+        self.assertEqual({x["kind"] for x in chain["transitions"][0]["evidence"]}, {"negative_regulation", "material_flow"})
+        self.assertIn('produces I [cytosol], which is an inhibitor of "B is converted to P".', chain["text"])
+        self.assertIn('produces I [cytosol], which is an input to "B is converted to P".', chain["text"])
+
+    def test_chain_and_currency_audit_denominators(self):
+        self.graph()
+        enumerate_chains(self.root)
+        report = audit(self.root)
+        chains = self.chains()
+        metrics = report["chain_metrics"]
+        self.assertEqual(metrics["total_chains"], len(chains))
+        self.assertEqual(metrics["lengths"]["all"]["count"], 8)
+        self.assertEqual(metrics["sink_fraction"], 6 / 8)
+        self.assertEqual(metrics["reaction_coverage"]["total_appearances"], sum(len(c["reaction_ids"]) for c in chains))
+        self.assertEqual(metrics["reaction_coverage"]["covered_reactions"], 6)
+        currency = report["currency"]
+        self.assertEqual(currency["reactions_losing_all_downstream"], ["R-DEMO-6"])
+        self.assertEqual(currency["reactions_losing_all_upstream"], [])
+        self.assertEqual(currency["reactions_becoming_isolated"], ["R-DEMO-6"])
+        atp = next(x for x in currency["molecules"] if x["identifier"] == "CHEBI:30616")
+        self.assertEqual(atp["excluded_evidence_edges"], 2)
+        self.assertEqual(atp["affected_reactions_becoming_isolated"], ["R-DEMO-6"])
+
+    def test_pathway_membership_numeric_refs_and_review_regeneration(self):
+        class FakeClient:
+            base = "https://example.invalid/ContentService"
+            def version(self): return "synthetic-example"
+            def url(self, path, params=None): return self.base + path
+            def get(self, path, params=None):
+                obj = ([{"dbId": 1}, 2, {"dbId": 999, "schemaClass": "Pathway"}]
+                       if path.endswith("containedEvents") else {"stId": "P", "schemaClass": "Pathway", "displayName": "Case"})
+                return dumps(obj).encode(), obj
+        manifest = read_json(self.root / "snapshot.json")
+        manifest["base_url"] = FakeClient.base
+        write_json(self.root / "snapshot.json", manifest)
+        case = self.root / "case"
+        self.assertTrue(prepare(self.root, case, "P", FakeClient())["complete"])
+        self.assertEqual(read_json(case / "snapshot.json")["expected_reactions"], 2)
+        normalize(case)
+        build_graph(case)
+        summary = packet(case)
+        self.assertTrue(summary["membership_complete"])
+        self.assertEqual(summary["source_pointer_checks"], summary["source_pointer_passes"])
+        manual = case / "review" / "manual_review.csv"
+        content = manual.read_text().replace("pending", "reviewed", 1)
+        manual.write_text(content)
+        summary = packet(case)
+        self.assertEqual(manual.read_text(), content)
+        self.assertEqual(summary["manual_review_status_counts"]["reviewed"], 1)
 
     def test_source_pointers_locate_original_json_values(self):
         rows = read_json(Path(__file__).parents[1] / "examples" / "input" / "reactions.json")
@@ -226,6 +319,23 @@ class PipelineTests(unittest.TestCase):
                     self.assertIsInstance(obj, dict)
                     if "@ref" not in obj:
                         self.assertEqual(obj.get("stId"), item["entity_id"])
+
+    def test_complete_frozen_pathway_feedback_compartments_and_chain_counts(self):
+        with tempfile.TemporaryDirectory() as other:
+            create_pathway_example(other)
+            self.assertTrue(normalize(other)["complete"])
+            self.assertEqual(build_graph(other)["evidence_edges"], 11)
+            edges = list(read_jsonl(Path(other) / "graph/edges.jsonl"))
+            self.assertTrue(any(e["source"] == e["target"] == "R-BTA-174394" and e["kind"] == "negative_regulation" for e in edges))
+            self.assertFalse(any("R-BTA-8943279" in (e["source"], e["target"]) for e in edges))
+            status = enumerate_chains(other)
+            self.assertTrue(status["complete"])
+            self.assertEqual((status["sink_chains"], status["cycle_stopped_chains"]), (1, 9))
+            report = audit(other)
+            self.assertEqual(report["chain_metrics"]["reaction_coverage"]["total_appearances"], 45)
+            summary = packet(other)
+            self.assertEqual((summary["source_pointer_checks"], summary["source_pointer_passes"]), (40, 40))
+            self.assertEqual(summary["manual_review_status_counts"], {"pending": 18})
 
     def test_maximal_paths_match_independent_permutation_oracle(self):
         # All directed graphs on three vertices without self-loops, plus self-loop cases.

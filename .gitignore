@@ -10,3 +10,17 @@ runs/
 *.log
 .env
 .env.*
+slides/*.aux
+slides/*.nav
+slides/*.out
+slides/*.snm
+slides/*.toc
+slides/*.vrb
+slides/*.xdv
+slides/*.synctex.gz
+slides/
+reports/demo-audit/
+examples/extraction_snapshot/
+examples/pathway_snapshot/
+reports/text-format-v3/
+.vscode/

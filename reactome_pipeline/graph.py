@@ -140,3 +140,23 @@ def components(adjacency, reverse):
                     stack.append(parent)
         result.append(sorted(group))
     return sorted(result, key=lambda group: group[0])
+
+
+def weak_components(adjacency, reverse):
+    """Independent graph components, ordered by size then stable identifier."""
+    unseen = set(adjacency)
+    groups = []
+    for node in sorted(adjacency):
+        if node not in unseen:
+            continue
+        unseen.remove(node)
+        group, stack = [], [node]
+        while stack:
+            current = stack.pop()
+            group.append(current)
+            for neighbor in adjacency[current] + reverse[current]:
+                if neighbor in unseen:
+                    unseen.remove(neighbor)
+                    stack.append(neighbor)
+        groups.append(sorted(group))
+    return sorted(groups, key=lambda group: (len(group), group[0]))

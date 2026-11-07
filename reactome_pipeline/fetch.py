@@ -16,6 +16,7 @@ from pathlib import Path
 from .common import digest, read_json, write_bytes, write_json, write_jsonl
 
 DEFAULT_BASE = "https://reactome.org/ContentService"
+RETRYABLE_STATUS = frozenset({403, 408, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524})
 QUERY = {"view": "nested", "includeRef": "true", "fetchIncomingRelationships": "true", "summariseReferenceEntity": "true"}
 
 
@@ -53,7 +54,7 @@ class Client:
                     body = response.read()
                 return body, json.loads(body)
             except (urllib.error.URLError, TimeoutError, ConnectionError, json.JSONDecodeError) as exc:
-                retryable = not isinstance(exc, urllib.error.HTTPError) or exc.code in (403, 408, 429, 500, 502, 503, 504)
+                retryable = not isinstance(exc, urllib.error.HTTPError) or exc.code in RETRYABLE_STATUS
                 if not retryable or attempt == self.retries:
                     raise RuntimeError(f"GET {url}: {exc}") from exc
                 delay = min(2 ** attempt, 30)
@@ -215,9 +216,23 @@ def download(root, client, workers=4, max_failures=8, limit=None):
         executor.shutdown(wait=True, cancel_futures=True)
         connection.commit()
     # Files written by in-flight workers after interruption are validated on resume.
-    version_after = client.version()
+    status = {"expected": len(records), "downloaded": completed, "failed_this_run": len(errors),
+              "complete": False, "stopped_after_failures_or_interrupt": stopped,
+              "reactome_release": release, "stage": "checking_release_after_download"}
+    write_jsonl(root / "download_errors.jsonl", sorted(errors, key=lambda row: row["db_id"]))
+    write_json(root / "download_status.json", status)
+    try:
+        version_after = client.version()
+    except (RuntimeError, OSError, ValueError) as exc:
+        status.update(stage="stopped", error=str(exc), release_check_complete=False)
+        write_json(root / "download_status.json", status)
+        connection.close()
+        raise
     if version_after != release:
         write_json(root / "release_mismatch.json", {"expected": release, "observed": version_after})
+        status.update(stage="stopped", release_check_complete=False, error="Reactome release changed")
+        write_json(root / "download_status.json", status)
+        connection.close()
         raise ValueError("Release changed during downloads; this snapshot requires review")
     status = {"expected": len(records), "downloaded": completed, "failed_this_run": len(errors),
               "complete": completed == len(records), "stopped_after_failures_or_interrupt": stopped,
