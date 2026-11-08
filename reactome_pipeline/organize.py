@@ -11,6 +11,7 @@ from collections import defaultdict
 from pathlib import Path
 
 from .common import digest, dumps, file_sha, read_json, read_jsonl, write_json, write_jsonl
+from .graph import EDGE_RULES
 from .fetch import load_snapshot
 from .locking import SnapshotLock
 
@@ -47,7 +48,7 @@ def index_dataset(dataset):
         raise ValueError("Frozen catalog checksum differs")
     graph = read_json(root / "graph/status.json")
     normalized_sha = file_sha(root / "normalized/reactions.jsonl")
-    if digest({"normalization": normalized_sha, "currency": graph["currency_sha256"], "edge_rules": "exact-stid-v1"}) != graph["graph_sha256"]:
+    if digest({"normalization": normalized_sha, "currency": graph["currency_sha256"], "edge_rules": EDGE_RULES}) != graph["graph_sha256"]:
         raise ValueError("Normalized reactions and graph differ")
     pathways = hierarchy["pathways"]
     fingerprint = digest({"graph": graph["graph_sha256"], "hierarchy": catalog_status["hierarchy_sha256"],

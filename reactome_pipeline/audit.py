@@ -39,6 +39,15 @@ def audit(root):
         values = {str(item["tax_id"]) for item in reaction["species"] if item.get("tax_id")}
         return values or ({reaction["species_name"]} if reaction.get("species_name") else set())
     cross_species = sum(bool(species_set(reactions[a]) and species_set(reactions[b]) and not (species_set(reactions[a]) & species_set(reactions[b]))) for a, b in pairs)
+    names = {}
+    for reaction in reactions.values():
+        for role in ("inputs", "outputs", "catalysts", "regulators"):
+            for entity in reaction[role]:
+                if entity["entity_id"]:
+                    names.setdefault(entity["entity_id"], set()).add(entity["display_name"])
+    multi_name = {k: sorted(v) for k, v in names.items() if len(v) > 1}
+    no_compartment = sorted(k for k, v in names.items() if not any("[" in n for n in v))
+    write_jsonl(out / "entity_name_conflicts.jsonl", ({"entity_id": k, "names": v} for k, v in sorted(multi_name.items())))
     cross_pathway = 0
     for a, b in pairs:
         pa = {x["id"] for x in reactions[a]["pathways"] if x["id"]}
@@ -64,6 +73,9 @@ def audit(root):
               "preceding_event": {"pairs_within_graph": len(preceding), "overlap": len(preceding & pairs),
                                   "only_preceding": len(preceding - pairs), "only_entity_matching": len(pairs - preceding),
                                   "matched_negative_preceding": len(rejected)},
+              "compartment": {"entities": len(names), "entities_with_multiple_names": len(multi_name),
+                              "entities_without_compartment_label": len(no_compartment),
+                              "interpretation": "One stable entity ID maps to one recorded display name, and the name carries the compartment; matching by exact entity ID therefore also matches compartment. Counts are a check of that invariant, not a filter."},
               "cross_species_pairs_with_disjoint_recorded_species": cross_species,
               "cross_pathway_pairs_with_disjoint_recorded_direct_memberships": cross_pathway,
               "currency": currency_metrics(root, db, reactions, adjacency, reverse)}

@@ -142,7 +142,7 @@ ATP [cytosol] + SGK1 [cytosol] → ADP [cytosol] + p-S422-SGK1 [cytosol]; cataly
 | output | 负调控 regulator | `negative_regulation` |
 | output | 类型未明确的 regulator | `unknown_regulation` |
 
-`Requirement` 归入正调控，并保留原始类。复合物和集合以其自身 `stId` 匹配。不同 compartment、修饰状态或复合物身份维持为不同实体。Pathway 和物种归属作为元数据保留，不作为连边过滤条件；跨 pathway、跨物种的候选数量在 audit 中报告。
+`Requirement` 归入正调控，并保留原始类。复合物和集合以其自身 `stId` 匹配。不同 compartment、修饰状态或复合物身份维持为不同实体。**同物种是连边前提**：上游反应和下游反应必须来自同一物种（`stId` 的物种段相同，例如 `R-HSA-*`），跨物种候选在 audit 中计数且不建边。区室由实体 `stId` 隐含——同一 `stId` 只对应一个区室，audit 核对这条不变式。Pathway 归属仍作为元数据保留，不作为连边过滤条件；跨 pathway 的候选数量在 audit 中报告。
 
 一条证据边对应 `(source, target, kind, entity_id)`，包含内容指纹及两端角色的 JSON 指针。同一反应对可有多种证据；枚举时只走一条邻接关系，链中附上全部证据。自环保留在图中。
 

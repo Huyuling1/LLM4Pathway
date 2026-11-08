@@ -16,7 +16,7 @@ from pathlib import Path
 from .common import digest, read_json, write_bytes, write_json, write_jsonl
 
 DEFAULT_BASE = "https://reactome.org/ContentService"
-RETRYABLE_STATUS = frozenset({403, 408, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524})
+RETRYABLE_STATUS = frozenset({403, 408, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524, 525, 526})
 QUERY = {"view": "nested", "includeRef": "true", "fetchIncomingRelationships": "true", "summariseReferenceEntity": "true"}
 
 

@@ -9,6 +9,14 @@ from pathlib import Path
 from .common import digest, dumps, file_sha, read_json, read_jsonl, write_json, write_jsonl
 from .currency import load_currency
 
+EDGE_RULES = "exact-stid-same-species-v1"
+
+
+def reaction_species(rid):
+    """Species token of a reaction stable ID, e.g. R-HSA-123 -> HSA."""
+    parts = rid.split("-")
+    return parts[1] if len(parts) >= 3 else "unknown"
+
 
 def build_graph(root, currency_path=None):
     root = Path(root)
@@ -21,7 +29,7 @@ def build_graph(root, currency_path=None):
         temp.unlink()
     db = sqlite3.connect(temp)
     db.executescript("""
-        CREATE TABLE reactions (id TEXT PRIMARY KEY, data TEXT NOT NULL);
+        CREATE TABLE reactions (id TEXT PRIMARY KEY, data TEXT NOT NULL, species TEXT NOT NULL);
         CREATE TABLE participants (reaction TEXT, role TEXT, kind TEXT, entity TEXT, pointer TEXT,
                                    PRIMARY KEY(reaction,role,kind,entity,pointer));
         CREATE TABLE entities (id TEXT PRIMARY KEY, name TEXT, chebi_ids TEXT, excluded INTEGER NOT NULL);
@@ -35,7 +43,7 @@ def build_graph(root, currency_path=None):
         if rid in seen_reactions:
             raise ValueError(f"Repeated reaction ID: {rid}")
         seen_reactions.add(rid)
-        db.execute("INSERT INTO reactions VALUES (?,?)", (rid, dumps(reaction)))
+        db.execute("INSERT INTO reactions VALUES (?,?,?)", (rid, dumps(reaction), reaction_species(rid)))
         for role, kind in (("outputs", "output"), ("inputs", "material_flow"), ("catalysts", "catalyst_dependency"), ("regulators", None)):
             for entity in reaction[role]:
                 eid = entity["entity_id"]
@@ -56,12 +64,15 @@ def build_graph(root, currency_path=None):
         SELECT a.reaction,b.reaction,b.kind,a.entity
         FROM participants a JOIN participants b ON a.entity=b.entity
         JOIN entities e ON a.entity=e.id
-        WHERE a.role='outputs' AND b.role!='outputs' AND e.excluded=0;
+        JOIN reactions rs ON rs.id=a.reaction
+        JOIN reactions rt ON rt.id=b.reaction
+        WHERE a.role='outputs' AND b.role!='outputs' AND e.excluded=0 AND rs.species=rt.species;
         CREATE INDEX edges_target ON edges(target);
     """)
     # Include self-loops in the graph; non-repetition is applied only during path enumeration.
-    fingerprint = digest({"normalization": file_sha(root / "normalized" / "reactions.jsonl"), "currency": config_sha, "edge_rules": "exact-stid-v1"})
+    fingerprint = digest({"normalization": file_sha(root / "normalized" / "reactions.jsonl"), "currency": config_sha, "edge_rules": EDGE_RULES})
     metadata = {"format_version": 1, "graph_sha256": fingerprint, "currency_sha256": config_sha,
+                "species_policy": "same-reaction-species-v1",
                 "currency_version": config["version"], "input_complete": status["complete"],
                 "reactions": len(seen_reactions), "evidence_edges": db.execute("SELECT count(*) FROM edges").fetchone()[0],
                 "reaction_pairs": db.execute("SELECT count(*) FROM (SELECT DISTINCT source,target FROM edges)").fetchone()[0]}

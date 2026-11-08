@@ -24,3 +24,4 @@ examples/extraction_snapshot/
 examples/pathway_snapshot/
 reports/text-format-v3/
 .vscode/
+.tmp/

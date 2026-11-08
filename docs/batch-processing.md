@@ -117,7 +117,7 @@ python3 -m reactome_pipeline.organize export --dataset data/reactome-98-bulk \
 - `chain_refs.jsonl`：每条记录包含 `chain_id` 和 `member_reaction_ids`；不保存完整链结构或文本。
 - `manifest.json`：来源、物种、文件校验值、成员覆盖情况、索引进度及全局枚举是否完成。
 
-按引用读取时保留完整链，外部反应不截断，可从全局标准化记录按 ID 查找。一个全局 chain ID 可出现在多个 pathway 文件夹中；汇总链数量时按 ID 去重。物种目录用于浏览上下文，不参与全局实体匹配。图保持完整；未导出的 pathway 仍可通过索引选择导出。
+按引用读取时保留完整链，外部反应不截断，可从全局标准化记录按 ID 查找。一个全局 chain ID 可出现在多个 pathway 文件夹中；汇总链数量时按 ID 去重。物种目录用于浏览上下文；连边要求上下游反应属于同一物种，pathway 归属不参与过滤。图保持完整；未导出的 pathway 仍可通过索引选择导出。
 
 ## 查看全文与显式导出副本
 
